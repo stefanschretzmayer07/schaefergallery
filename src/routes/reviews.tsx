@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
+import cutFadeSide from "@/assets/cut-fade-side.jpg";
+import cutCurlyTop from "@/assets/cut-curly-top.jpg";
+import cutCleanFade from "@/assets/cut-clean-fade.jpg";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -68,6 +71,38 @@ function Reviews() {
           <p className="mt-3 text-sm uppercase tracking-[0.3em] text-muted-foreground">
             Loved by Miller Place
           </p>
+        </div>
+      </section>
+
+      {/* Recent work gallery */}
+      <section className="bg-secondary/40 px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <div className="reveal mx-auto max-w-2xl text-center">
+            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+              Recent work
+            </p>
+            <h2 className="mt-3 font-serif text-3xl md:text-5xl">From the chair</h2>
+          </div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { src: cutCleanFade, alt: "Clean skin fade haircut" },
+              { src: cutFadeSide, alt: "Tapered fade side profile" },
+              { src: cutCurlyTop, alt: "Textured curly top with faded sides" },
+            ].map((img, i) => (
+              <div
+                key={img.alt}
+                className="reveal overflow-hidden rounded-2xl bg-background"
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="aspect-[4/5] h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
