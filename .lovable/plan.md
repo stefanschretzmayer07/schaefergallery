@@ -1,51 +1,65 @@
 
-# Schaefer's Gallery Barbershop — Premium Website
+# SMS Reminders + Post-Visit Review Flow
 
-A calm, luxury barbershop site with a high-end NYC aesthetic. Multi-page TanStack Start architecture, smooth animations, and an interactive booking flow. The provided HTML/CSS/JS reference is rebuilt as a polished React + Tailwind v4 implementation using shadcn components.
+Building on the previously approved SMS plan, adding a post-visit "leave a review" text and a public review submission section on the site.
 
-## Real Business Info (from your snippet)
-- **Name**: Schaefer's Gallery Barbershop
-- **Address**: 984 NY-25A, Miller Place, NY
-- **Phone**: (631) 452-1992
-- **Services**: Haircut, Beard Trim, Buzz Cut, Styling
+## Customer Journey (full)
 
-## Design Direction
-- **Palette**: deep black (#0a0a0a), warm beige (#d6c5a8 / #f5efe6), soft off-white, muted gray
-- **Typography**: Playfair Display serif headings, Inter sans body
-- **Feel**: generous whitespace, slow fades, refined hover states — luxury spa minimalism
+1. Books on `/book` → **Confirmation SMS** sent immediately.
+2. **24h before** → reminder SMS.
+3. **2h before** → reminder SMS.
+4. **2 hours after appointment time** → **Review request SMS**:
+   *"Thanks for visiting Schaefer's Gallery! We'd love your feedback — leave a quick review: https://[site]/reviews#leave-a-review"*
+5. Customer taps link → lands on `/reviews`, scrolls to the **"Leave a Review"** form, submits name + star rating + text.
+6. New review appears in the testimonial grid (after light moderation flag).
 
-## Site Structure (separate routes for SEO)
-- `/` — Home: hero, brief intro, featured services, testimonial highlight, CTA
-- `/about` — Story, 10+ years experience, family-friendly, kids welcome
-- `/services` — Full service list with pricing & descriptions
-- `/reviews` — 5.0 ★ display + testimonial grid
-- `/book` — Interactive booking flow
-- `/contact` — Phone, address, hours, map
+## What Gets Built
 
-Each route gets its own `head()` metadata.
+### Database (Lovable Cloud)
+- **`appointments`** table (from prior plan) — adds one column:
+  - `review_request_sent_at timestamptz`
+- **`reviews`** table — new:
+  - `id`, `name`, `rating` (1–5), `text`, `created_at`
+  - `approved boolean default true` (set false later if moderation needed)
+  - RLS: public can `INSERT` (anyone leaves a review) and `SELECT` where `approved = true`
 
-## Key Components
-- **Sticky nav** (`__root.tsx`): translucent on scroll, logo left, links right, "Book" CTA
-- **Hero**: full-bleed, large serif name, tagline "Precision. Style. Experience.", Book / Services CTAs
-- **About**: split layout with stat highlights (10+ years, 5.0 rating, family-friendly)
-- **Service cards**: Haircut, Beard Trim, Buzz Cut, Styling — price, duration, hover lift
-- **Reviews**: large 5.0 ★★★★★, testimonial grid with fade-in
-- **Booking flow** (`/book`), 4 steps:
-  1. Select service
-  2. Calendar (shadcn `Calendar`, disable past dates + Sundays, `pointer-events-auto`)
-  3. Time slot grid (9am–6pm, 30-min intervals)
-  4. Name + phone form → success toast + summary card (front-end only)
-- **Footer**: address, phone, hours, copyright
+### Twilio Connector
+Connect once — same connection powers all 4 SMS types (confirmation, 24h, 2h, post-visit review).
 
-## Interactions & Animations
-- IntersectionObserver fade-in-on-scroll
-- Site-wide smooth scroll
-- Hover lift on cards, animated nav underlines
-- Subtle button scale on hover
+### Server Functions / Routes
+- `createBooking` — inserts appointment + sends confirmation SMS
+- `submitReview` — validates (zod: name 1–60, rating 1–5, text 10–500) + inserts into `reviews`
+- `getReviews` — returns approved reviews, newest first (loader on `/reviews`)
+- `/api/cron/send-reminders` — scans for due 24h, 2h, **and review-request** SMS; sends each once; marks timestamps. Triggered every 15 min by `pg_cron`.
+
+### Frontend
+- **`/book`**: SMS consent microcopy; success screen confirms text sent.
+- **`/reviews`**:
+  - Existing testimonial grid switches to live data from `getReviews` (seeded with the current 6 hardcoded reviews so it never looks empty).
+  - New **"Leave a Review"** section with anchor `#leave-a-review`:
+    - Name input
+    - 5-star clickable rating selector
+    - Textarea (review text)
+    - Submit → toast confirmation, list refreshes, form clears.
+  - Header "Write a Review" button scrolls to the form.
+
+### SMS Copy
+
+| Trigger | Message |
+|---|---|
+| Booking confirmed | "Hi {name} — you're booked at Schaefer's Gallery for {service} on {date} at {time}. Reply STOP to opt out." |
+| 24h before | "Reminder: your {service} at Schaefer's Gallery is tomorrow at {time}. See you soon — 984 NY-25A, Miller Place." |
+| 2h before | "Heads up — your appointment at Schaefer's Gallery is in 2 hours ({time}). Need to reschedule? Call (631) 452-1992." |
+| 2h after appointment | "Thanks for stopping by Schaefer's Gallery, {name}! Loved your cut? Leave a quick review: {site}/reviews#leave-a-review" |
 
 ## Tech Notes
-- TanStack Start file-based routes under `src/routes/`
-- Tailwind v4 design tokens updated in `src/styles.css` for the neutral palette
-- shadcn `Calendar`, `Button`, `Card`, `Input`, `Form`, `Sonner`
-- Replaces the placeholder in `src/routes/index.tsx`
-- Front-end only — no backend persistence
+- All SMS sent server-side via Twilio gateway (`connector-gateway.lovable.dev/twilio`) — no keys in browser.
+- Phone numbers normalized to E.164 before storing.
+- Cron windows: 24h reminder fires 23.5–24.5h out; 2h fires 1.5–2.5h out; review request fires 1.75–2.25h *after* `appointment_at`. Each marked with a sent-at timestamp so duplicates are impossible.
+- Review form input validated with zod on both client and server; rate-limited per IP (in-memory) to prevent spam.
+- Reviews list rendered with seed data on first load so the page is never empty before real reviews come in.
+
+## What You'll Need to Provide
+1. Approve enabling **Lovable Cloud** (database + scheduled job).
+2. Approve connecting **Twilio** (one click when prompted).
+3. The Twilio phone number to send from (asked after connecting, stored as `TWILIO_FROM_NUMBER`).
