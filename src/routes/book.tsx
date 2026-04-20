@@ -30,11 +30,11 @@ export const Route = createFileRoute("/book")({
 });
 
 const services = [
-  { name: "Haircut", price: "$35", duration: "45 min" },
+  { name: "Haircut", price: "$30", duration: "45 min" },
   { name: "Beard Trim", price: "$20", duration: "20 min" },
   { name: "Buzz Cut", price: "$25", duration: "20 min" },
   { name: "Styling", price: "$30", duration: "30 min" },
-  { name: "Haircut + Beard", price: "$50", duration: "60 min" },
+  { name: "Haircut + Beard", price: "$45", duration: "60 min" },
   { name: "Kids' Cut (under 12)", price: "$25", duration: "30 min" },
 ];
 
@@ -127,6 +127,10 @@ function Book() {
             <h1 className="mt-4 font-serif text-4xl leading-[1.1] md:text-5xl">
               Reserve your chair.
             </h1>
+            <div className="mx-auto mt-6 max-w-xl rounded-xl border border-border bg-secondary/40 px-5 py-4 text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Heads up:</span> Tuesdays & Wednesdays are{" "}
+              <span className="font-medium text-foreground">walk-in only</span> — no appointments needed. Book online for Mon, Thu, Fri & Sat.
+            </div>
           </div>
 
           {/* Stepper */}
@@ -203,12 +207,12 @@ function Book() {
                     mode="single"
                     selected={date}
                     onSelect={setDate}
-                    disabled={(d) => d < today || d.getDay() === 0}
+                    disabled={(d) => d < today || d.getDay() === 0 || d.getDay() === 2 || d.getDay() === 3}
                     className={cn("pointer-events-auto rounded-xl border border-border p-3")}
                   />
                 </div>
                 <p className="mt-4 text-center text-xs text-muted-foreground">
-                  We're closed Sundays.
+                  Tue & Wed are walk-in only · Closed Sundays
                 </p>
               </div>
             )}

@@ -35,9 +35,10 @@ export function SiteFooter() {
             <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               Hours
             </h4>
-            <p className="text-primary-foreground/80">Mon – Fri · 9am – 7pm</p>
-            <p className="text-primary-foreground/80">Saturday · 9am – 6pm</p>
-            <p className="text-primary-foreground/80">Sunday · Closed</p>
+            <p className="text-primary-foreground/80">Mon · Appointment</p>
+            <p className="text-primary-foreground/80">Tue – Wed · Walk-in</p>
+            <p className="text-primary-foreground/80">Thu – Sat · Appointment</p>
+            <p className="text-primary-foreground/80">Sun · Closed</p>
           </div>
         </div>
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-primary-foreground/10 pt-6 text-xs text-primary-foreground/50 md:flex-row">

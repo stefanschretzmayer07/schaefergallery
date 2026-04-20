@@ -68,7 +68,13 @@ function Contact() {
             {
               icon: Clock,
               title: "Hours",
-              lines: ["Mon – Fri · 9am – 7pm", "Saturday · 9am – 6pm", "Sunday · Closed"],
+              lines: [
+                "Mon · 9am – 7pm (appt)",
+                "Tue – Wed · 9am – 7pm (walk-in)",
+                "Thu – Fri · 9am – 7pm (appt)",
+                "Sat · 9am – 6pm (appt)",
+                "Sun · Closed",
+              ],
             },
           ].map((card, i) => (
             <div
