@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Phone, MapPin, Clock } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
+import shopExterior from "@/assets/shop-exterior.jpg";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -33,6 +34,17 @@ function Contact() {
           <h1 className="mt-4 font-serif text-4xl leading-[1.1] md:text-6xl">
             Stop by, or give us a call.
           </h1>
+        </div>
+      </section>
+
+      <section className="px-6 pb-16">
+        <div className="reveal mx-auto max-w-6xl overflow-hidden rounded-2xl">
+          <img
+            src={shopExterior}
+            alt="Schaefer's Gallery Barbershop storefront on NY-25A in Miller Place"
+            loading="lazy"
+            className="aspect-[16/9] w-full object-cover"
+          />
         </div>
       </section>
 

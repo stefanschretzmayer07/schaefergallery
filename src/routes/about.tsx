@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Scissors, Users, Award, Heart } from "lucide-react";
-import aboutImage from "@/assets/about-barber.jpg";
+import aboutImage from "@/assets/shop-waiting.jpg";
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/about")({
@@ -54,9 +54,9 @@ function About() {
           <div className="reveal overflow-hidden rounded-2xl">
             <img
               src={aboutImage}
-              alt="A barber working with vintage scissors"
+              alt="Inside Schaefer's Gallery Barbershop — waiting area and chairs"
               width={1024}
-              height={1024}
+              height={1280}
               loading="lazy"
               className="h-full w-full object-cover"
             />

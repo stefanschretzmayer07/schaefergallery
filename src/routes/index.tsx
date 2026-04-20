@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Star, Scissors, ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-barbershop.jpg";
+import heroImage from "@/assets/shop-interior.jpg";
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
