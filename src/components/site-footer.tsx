@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import logo from "@/assets/logo.png";
 
 export function SiteFooter() {
   return (
@@ -6,8 +7,14 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
-            <h3 className="font-serif text-2xl">Schaefer's Gallery</h3>
-            <p className="mt-3 text-sm text-primary-foreground/70">
+            <img
+              src={logo}
+              alt="Schaefer's Gallery Barbershop"
+              width={96}
+              height={96}
+              className="h-20 w-20 rounded-full bg-primary-foreground/95 object-contain p-2"
+            />
+            <p className="mt-4 text-sm text-primary-foreground/70">
               Refined cuts. Calm atmosphere. Miller Place, NY.
             </p>
           </div>

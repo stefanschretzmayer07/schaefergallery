@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -32,13 +33,15 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:py-5">
-        <Link to="/" className="group flex flex-col leading-none">
-          <span className="font-serif text-xl tracking-tight md:text-2xl">
-            Schaefer's Gallery
-          </span>
-          <span className="mt-0.5 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Barbershop
-          </span>
+        <Link to="/" className="group flex items-center gap-3" aria-label="Schaefer's Gallery Barbershop — Home">
+          <img
+            src={logo}
+            alt="Schaefer's Gallery Barbershop"
+            width={48}
+            height={48}
+            className="h-10 w-10 object-contain md:h-12 md:w-12"
+          />
+          <span className="sr-only">Schaefer's Gallery Barbershop</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
