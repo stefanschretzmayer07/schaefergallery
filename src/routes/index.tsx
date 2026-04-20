@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
 });
 
 const featuredServices = [
-  { name: "Haircut", price: "$35", duration: "45 min" },
+  { name: "Haircut", price: "$30", duration: "45 min" },
   { name: "Beard Trim", price: "$20", duration: "20 min" },
   { name: "Buzz Cut", price: "$25", duration: "20 min" },
   { name: "Styling", price: "$30", duration: "30 min" },
@@ -201,7 +201,7 @@ function Home() {
         <div className="reveal mx-auto max-w-3xl text-center">
           <h2 className="font-serif text-3xl md:text-5xl">Ready for your next cut?</h2>
           <p className="mt-4 text-primary-foreground/70">
-            Book online in under a minute. Walk-ins welcome when chairs are open.
+            Book online in under a minute for Mon, Thu, Fri & Sat. Tuesdays and Wednesdays are walk-in only — just stop by.
           </p>
           <Link
             to="/book"

@@ -24,7 +24,7 @@ export const Route = createFileRoute("/services")({
 const services = [
   {
     name: "Haircut",
-    price: "$35",
+    price: "$30",
     duration: "45 min",
     description:
       "A precision cut tailored to your hair, face shape, and lifestyle. Includes consultation, wash, cut, and finish.",
@@ -52,7 +52,7 @@ const services = [
   },
   {
     name: "Haircut + Beard",
-    price: "$50",
+    price: "$45",
     duration: "60 min",
     description:
       "The complete package. A full haircut paired with a refined beard trim and finishing touches.",
@@ -82,6 +82,10 @@ function Services() {
           <p className="mt-6 text-base text-muted-foreground md:text-lg">
             Every service includes a consultation. Walk in, sit down, and tell us what you're after.
           </p>
+          <div className="mx-auto mt-8 max-w-2xl rounded-xl border border-border bg-secondary/40 px-5 py-4 text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Tuesdays & Wednesdays are walk-in only.</span>{" "}
+            Mon, Thu, Fri & Sat are by appointment — book online or call.
+          </div>
         </div>
       </section>
 
