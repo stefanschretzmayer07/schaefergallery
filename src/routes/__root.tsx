@@ -46,6 +46,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Schaefer's Gallery Barbershop — Miller Place, NY" },
+      { name: "description", content: "A modern, minimalistic barbershop website for Schaefer's Gallery Barbershop, offering online booking and service information." },
+      { property: "og:description", content: "A modern, minimalistic barbershop website for Schaefer's Gallery Barbershop, offering online booking and service information." },
+      { name: "twitter:description", content: "A modern, minimalistic barbershop website for Schaefer's Gallery Barbershop, offering online booking and service information." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c55a6d5d-dada-4b8f-8f6e-24b6cc6d4e92/id-preview-8a77ee77--ad53e696-0d27-4a8a-acb2-e38c80c32fe6.lovable.app-1776692057516.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c55a6d5d-dada-4b8f-8f6e-24b6cc6d4e92/id-preview-8a77ee77--ad53e696-0d27-4a8a-acb2-e38c80c32fe6.lovable.app-1776692057516.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
